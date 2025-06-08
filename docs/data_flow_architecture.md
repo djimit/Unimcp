@@ -276,7 +276,7 @@ Tool Invocation: {
 }
 
 API Request:
-GET https://sitemanager.ui.com/api/sites/site1/devices
+GET https://api.ui.com/sites/site1/devices
 Headers: {
   "Authorization": "Bearer unifi_api_key",
   "Content-Type": "application/json"

@@ -11,7 +11,7 @@ The Unifi MCP Server uses environment variables for configuration. These can be 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `UNIFI_API_KEY` | Yes | None | Your Unifi Site Manager API key |
-| `UNIFI_API_URL` | No | `https://sitemanager.ui.com/api` | The base URL for the Unifi Site Manager API |
+| `UNIFI_API_URL` | No | `https://api.ui.com` | The base URL for the Unifi Site Manager API |
 
 ### The `.env` File
 
@@ -22,8 +22,8 @@ The `.env` file is the recommended way to configure the server. A template is pr
 # Get this from Unifi console: Settings → Control Plane → Integrations → Create API Key
 UNIFI_API_KEY=your_api_key_here
 
-# Unifi API URL (optional, defaults to https://sitemanager.ui.com/api)
-UNIFI_API_URL=https://sitemanager.ui.com/api
+# Unifi API URL (optional, defaults to https://api.ui.com)
+UNIFI_API_URL=https://api.ui.com
 ```
 
 Copy this template to create your `.env` file:
