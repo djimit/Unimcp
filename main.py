@@ -9,7 +9,23 @@ from typing import Dict, List, Any, Optional
 import httpx
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-from mcp import MCPServer
+
+try:
+    from mcp import MCPServer
+except Exception:  # pragma: no cover - fallback for missing MCPServer
+    class MCPServer:  # type: ignore
+        def __init__(self, *args, **kwargs) -> None:
+            pass
+
+        def tool(self, *args, **kwargs):  # pragma: no cover - simple decorator
+            def decorator(func):
+                return func
+            return decorator
+
+        def resource(self, *args, **kwargs):  # pragma: no cover - simple decorator
+            def decorator(func):
+                return func
+            return decorator
 
 # Configure logging
 logging.basicConfig(
@@ -193,9 +209,8 @@ async def startup_event():
         logger.info("Unifi client initialized successfully")
     except Exception as e:
         logger.error(f"Failed to initialize Unifi client: {e}")
-        # We'll continue running but tools will fail until the client is
-        # properly
-        # configured
+        # Stop application startup if the client is not configured
+        raise RuntimeError("Unifi client initialization failed") from e
 
 
 # Define MCP Tool input/output models
