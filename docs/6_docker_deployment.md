@@ -45,7 +45,7 @@ Create a `.env` file in the project directory with your Unifi API key:
 
 ```
 UNIFI_API_KEY=your_api_key_here
-UNIFI_API_URL=https://sitemanager.ui.com/api
+UNIFI_API_URL=https://api.ui.com
 ```
 
 ### Step 2: Deploy with Docker Compose
@@ -96,7 +96,7 @@ docker run -d \
   --name unifi-mcp-server \
   -p 8000:8000 \
   -e UNIFI_API_KEY=your_api_key_here \
-  -e UNIFI_API_URL=https://sitemanager.ui.com/api \
+  -e UNIFI_API_URL=https://api.ui.com \
   -v ./logs:/app/logs \
   unifi-mcp-server
 ```
@@ -126,7 +126,7 @@ The Docker deployment supports the following environment variables:
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `UNIFI_API_KEY` | Yes | None | Your Unifi Site Manager API key |
-| `UNIFI_API_URL` | No | `https://sitemanager.ui.com/api` | The base URL for the Unifi Site Manager API |
+| `UNIFI_API_URL` | No | `https://api.ui.com` | The base URL for the Unifi Site Manager API |
 | `PYTHONUNBUFFERED` | No | 1 | Ensures Python output is sent straight to the container log |
 
 ## Volumes
@@ -170,7 +170,7 @@ services:
       - "8000:8000"
     environment:
       - UNIFI_API_KEY=${UNIFI_API_KEY}
-      - UNIFI_API_URL=${UNIFI_API_URL:-https://sitemanager.ui.com/api}
+      - UNIFI_API_URL=${UNIFI_API_URL:-https://api.ui.com}
     restart: unless-stopped
     volumes:
       - ./logs:/app/logs

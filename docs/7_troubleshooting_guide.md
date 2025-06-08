@@ -85,7 +85,7 @@ This guide helps you diagnose and resolve common issues with the Unifi MCP Serve
 1. Check the format of your `.env` file:
    ```
    UNIFI_API_KEY=your_api_key_here
-   UNIFI_API_URL=https://sitemanager.ui.com/api
+   UNIFI_API_URL=https://api.ui.com
    ```
 2. Ensure there are no spaces around the `=` sign.
 3. Make sure there are no quotes around the values unless they're part of the value.
