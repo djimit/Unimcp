@@ -35,8 +35,8 @@ A Model Context Protocol (MCP) server that integrates the UI.com Site Manager AP
 
 2. **Set up virtual environment**
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    pip install -r requirements.txt
    ```
 
@@ -180,7 +180,7 @@ curl -X GET "http://localhost:8000/mcp/tools/get_isp_metrics" \
 Run the API coverage test:
 
 ```bash
-source venv/bin/activate
+source .venv/bin/activate
 python3 test_unifi_client.py
 ```
 
