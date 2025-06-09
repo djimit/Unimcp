@@ -108,8 +108,12 @@ async def test_api_coverage():
         for test_name, test_func in api_tests:
             try:
                 result = await test_func()
-                if test_name in ("get_sites_legacy", "get_devices_legacy"):
+                if test_name in ("get_sites_legacy", "get_devices_legacy", "get_clients_legacy"):
                     assert isinstance(result, list)
+                else:
+                    assert isinstance(result, dict)
+                    assert "data" in result
+                    assert isinstance(result["data"], list)
                 logger.info(f"✅ {test_name}: PASSED")
                 results.append((test_name, "PASSED", None))
             except Exception as e:

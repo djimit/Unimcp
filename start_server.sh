@@ -4,7 +4,9 @@
 # Load environment variables from .env file if it exists
 if [ -f .env ]; then
     echo "Loading environment variables from .env file"
-    export $(grep -v '^#' .env | xargs)
+    set -a
+    . .env
+    set +a
 fi
 
 # Check if UNIFI_API_KEY is set
