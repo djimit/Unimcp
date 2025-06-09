@@ -260,7 +260,7 @@ sequenceDiagram
 The API key is:
 1. **Stored Securely**: In environment variables or .env file
 2. **Never Hardcoded**: Not included in the source code
-3. **Passed in Headers**: Included in the Authorization header of requests
+3. **Passed in Headers**: Included in the `X-API-Key` header of requests
 
 ### Endpoint Integration
 
