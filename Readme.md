@@ -12,7 +12,7 @@ A Model Context Protocol (MCP) server that integrates the UI.com Site Manager AP
 - **SD-WAN Management**: Configure and monitor SD-WAN deployments
 
 ### MCP Integration
-- **9 MCP Tools** covering all API endpoints
+- **12 MCP Tools** covering all API endpoints
 - **4 MCP Resources** for direct data access
 - **Natural Language Interface** through Claude Desktop
 - **Pagination Support** for large datasets
