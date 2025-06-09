@@ -40,8 +40,18 @@ async def test_api_coverage():
         # Setup the mock client
         mock_instance = AsyncMock()
         mock_client.return_value.__aenter__.return_value = mock_instance
-        mock_instance.request.return_value.raise_for_status.return_value = None
-        mock_instance.request.return_value.json.return_value = mock_response_data
+
+        class DummyResponse:
+            def __init__(self, data):
+                self._data = data
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self._data
+
+        mock_instance.request.return_value = DummyResponse(mock_response_data)
         
         # Initialize the client
         client = UnifiClient()
@@ -98,6 +108,8 @@ async def test_api_coverage():
         for test_name, test_func in api_tests:
             try:
                 result = await test_func()
+                if test_name in ("get_sites_legacy", "get_devices_legacy"):
+                    assert isinstance(result, list)
                 logger.info(f"✅ {test_name}: PASSED")
                 results.append((test_name, "PASSED", None))
             except Exception as e:
