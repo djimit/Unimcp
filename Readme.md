@@ -1,5 +1,11 @@
 # Unifi MCP Server
 
+[![CI](https://github.com/djimit/Unimcp/workflows/CI/badge.svg)](https://github.com/djimit/Unimcp/actions)
+[![Python versions](https://img.shields.io/pypi/pyversions/unifi-mcp-server.svg)](https://pypi.org/project/unifi-mcp-server/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 A Model Context Protocol (MCP) server that integrates the UI.com Site Manager API with Claude Desktop, providing comprehensive access to UniFi network management through natural language.
 
 ## 🌟 Features
@@ -27,17 +33,27 @@ A Model Context Protocol (MCP) server that integrates the UI.com Site Manager AP
 
 ### Installation
 
+#### Option 1: Install from PyPI (Recommended)
+
+```bash
+pip install unifi-mcp-server
+```
+
+#### Option 2: Install from Source
+
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/Unimcp.git
+   git clone https://github.com/djimit/Unimcp.git
    cd Unimcp
    ```
 
-2. **Set up virtual environment**
+2. **Install the package**
    ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install -r requirements.txt
+   # For users
+   pip install .
+
+   # For developers
+   pip install -e ".[dev]"
    ```
 
 3. **Configure environment variables**
@@ -48,8 +64,38 @@ A Model Context Protocol (MCP) server that integrates the UI.com Site Manager AP
 
 4. **Run the server**
    ```bash
+   # Using the command-line tool
+   unifi-mcp
+
+   # Or using Python module
+   python -m unifi_mcp.server
+
+   # Or using the legacy script
    ./start_server.sh  # On Windows: start_server.bat
    ```
+
+#### Development Setup
+
+For contributors and developers:
+
+```bash
+# Clone the repository
+git clone https://github.com/djimit/Unimcp.git
+cd Unimcp
+
+# Install development dependencies
+make install-dev
+
+# Run tests
+make test
+
+# Run linters and formatters
+make format
+make lint
+
+# Run type checking
+make type-check
+```
 
 ### Claude Desktop Integration
 
@@ -59,8 +105,25 @@ Add this configuration to your Claude Desktop config file:
 {
   "mcpServers": {
     "unifi": {
+      "command": "unifi-mcp",
+      "env": {
+        "UNIFI_API_KEY": "your_api_key_here",
+        "UNIFI_API_URL": "https://api.ui.com"
+      }
+    }
+  }
+}
+```
+
+Or if installed from source:
+
+```json
+{
+  "mcpServers": {
+    "unifi": {
       "command": "python3",
-      "args": ["/path/to/Unimcp/main.py"],
+      "args": ["-m", "unifi_mcp.server"],
+      "cwd": "/path/to/Unimcp",
       "env": {
         "UNIFI_API_KEY": "your_api_key_here"
       }
@@ -177,20 +240,78 @@ curl -X GET "http://localhost:8000/mcp/tools/get_isp_metrics" \
 
 ## 🧪 Testing
 
-Run the API coverage test:
+The project includes comprehensive unit and integration tests:
 
 ```bash
-source .venv/bin/activate
-python3 test_unifi_client.py
+# Run all tests with coverage
+make test
+
+# Run only unit tests
+make test-unit
+
+# Run only integration tests
+make test-integration
+
+# Run tests with verbose output
+pytest -v
+
+# Run specific test file
+pytest tests/unit/test_client.py -v
 ```
+
+### Test Coverage
+
+The project maintains high test coverage:
+- Unit tests for all API client methods
+- Model validation tests
+- Integration tests for full workflows
+- Mocked HTTP responses for reliability
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+We welcome contributions! Please follow these steps:
+
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+3. **Install development dependencies**
+   ```bash
+   make install-dev
+   ```
+
+4. **Make your changes**
+   - Write clean, documented code
+   - Follow the existing code style (enforced by black and ruff)
+   - Add type hints where appropriate
+
+5. **Add tests**
+   - Write unit tests for new functionality
+   - Ensure existing tests pass
+   - Maintain or improve code coverage
+
+6. **Run quality checks**
+   ```bash
+   make format    # Format code
+   make lint      # Check code quality
+   make type-check # Run type checking
+   make test      # Run tests
+   ```
+
+7. **Commit your changes**
+   ```bash
+   git commit -m "feat: Add amazing feature"
+   ```
+   Follow [Conventional Commits](https://www.conventionalcommits.org/) specification
+
+8. **Push and create a Pull Request**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## 📄 License
 
