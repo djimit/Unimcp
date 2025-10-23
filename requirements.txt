@@ -1,6 +1,10 @@
-fastapi>=0.95.0
-uvicorn>=0.21.1
-pydantic>=1.10.7
-httpx>=0.24.0
-python-dotenv>=1.0.0
-mcp>=0.1.0
+# Production dependencies with pinned versions
+# Pin specific versions for reproducible builds
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+httpx==0.26.0
+python-dotenv==1.0.0
+
+# MCP integration (optional, using fallback if not available)
+# mcp>=0.1.0  # Uncomment when MCP package is available
