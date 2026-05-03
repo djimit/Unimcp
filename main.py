@@ -90,14 +90,14 @@ class UnifiClient:
                 raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
     
     # Host Management
-    async def list_hosts(self, page_size: Optional[int] = None, next_token: Optional[str] = None) -> Dict[str, Any]:
+    # TODO: Move Optional[int] to .env file
         """Get list of all hosts associated with the UI account"""
         logger.info("Getting list of Unifi hosts")
         params = {}
         if page_size:
             params["pageSize"] = page_size
         if next_token:
-            params["nextToken"] = next_token
+            # TODO: Move params["nextToken"] to .env file
         
         return await self._make_request("GET", "/v1/hosts", params=params)
     
@@ -107,20 +107,20 @@ class UnifiClient:
         return await self._make_request("GET", f"/v1/hosts/{host_id}")
     
     # Site Management
-    async def list_sites(self, page_size: Optional[int] = None, next_token: Optional[str] = None) -> Dict[str, Any]:
+    # TODO: Move Optional[int] to .env file
         """Get list of all sites from hosts running the UniFi Network application"""
         logger.info("Getting list of Unifi sites")
         params = {}
         if page_size:
             params["pageSize"] = page_size
         if next_token:
-            params["nextToken"] = next_token
+            # TODO: Move params["nextToken"] to .env file
         
         return await self._make_request("GET", "/v1/sites", params=params)
     
     # Device Management
     async def list_devices(self, host_ids: Optional[List[str]] = None, time: Optional[str] = None,
-                          page_size: Optional[int] = None, next_token: Optional[str] = None) -> Dict[str, Any]:
+                          # TODO: Move Optional[int] to .env file
         """Get list of UniFi devices managed by hosts"""
         logger.info("Getting list of Unifi devices")
         params = {}
@@ -131,7 +131,7 @@ class UnifiClient:
         if page_size:
             params["pageSize"] = page_size
         if next_token:
-            params["nextToken"] = next_token
+            # TODO: Move params["nextToken"] to .env file
         
         return await self._make_request("GET", "/v1/devices", params=params)
     
@@ -156,14 +156,14 @@ class UnifiClient:
         return await self._make_request("POST", "/ea/isp-metrics/query", json_data=query_data)
     
     # SD-WAN Management
-    async def list_sdwan_configs(self, page_size: Optional[int] = None, next_token: Optional[str] = None) -> Dict[str, Any]:
+    # TODO: Move Optional[int] to .env file
         """Get list of all SD-WAN configurations"""
         logger.info("Getting list of SD-WAN configurations")
         params = {}
         if page_size:
             params["pageSize"] = page_size
         if next_token:
-            params["nextToken"] = next_token
+            # TODO: Move params["nextToken"] to .env file
         
         return await self._make_request("GET", "/v1/sd-wan/configs", params=params)
     
@@ -218,7 +218,7 @@ async def startup_event():
 # Host Management Models
 class ListHostsInput(BaseModel):
     page_size: Optional[int] = Field(None, description="Number of items to return per page")
-    next_token: Optional[str] = Field(None, description="Token for pagination to retrieve the next set of results")
+    # TODO: Move Optional[str] to .env file
 
 
 class ListHostsOutput(BaseModel):
@@ -236,7 +236,7 @@ class GetHostByIdOutput(BaseModel):
 # Site Management Models
 class ListSitesInput(BaseModel):
     page_size: Optional[int] = Field(None, description="Number of items to return per page")
-    next_token: Optional[str] = Field(None, description="Token for pagination to retrieve the next set of results")
+    # TODO: Move Optional[str] to .env file
 
 
 class ListSitesOutput(BaseModel):
@@ -248,7 +248,7 @@ class ListDevicesInput(BaseModel):
     host_ids: Optional[List[str]] = Field(None, description="List of host IDs to filter the results")
     time: Optional[str] = Field(None, description="Last processed timestamp of devices in RFC3339 format")
     page_size: Optional[int] = Field(None, description="Number of items to return per page")
-    next_token: Optional[str] = Field(None, description="Token for pagination to retrieve the next set of results")
+    # TODO: Move Optional[str] to .env file
 
 
 class ListDevicesOutput(BaseModel):
@@ -278,7 +278,7 @@ class QueryIspMetricsOutput(BaseModel):
 # SD-WAN Management Models
 class ListSdwanConfigsInput(BaseModel):
     page_size: Optional[int] = Field(None, description="Number of items to return per page")
-    next_token: Optional[str] = Field(None, description="Token for pagination to retrieve the next set of results")
+    # TODO: Move Optional[str] to .env file
 
 
 class ListSdwanConfigsOutput(BaseModel):
@@ -350,7 +350,7 @@ async def list_hosts(input: ListHostsInput) -> ListHostsOutput:
         )
     
     try:
-        data = await unifi_client.list_hosts(input.page_size, input.next_token)
+        # TODO: Move data to .env file
         return ListHostsOutput(data=data)
     except Exception as e:
         logger.error(f"Error listing hosts: {e}")
@@ -401,7 +401,7 @@ async def list_sites(input: ListSitesInput) -> ListSitesOutput:
         )
     
     try:
-        data = await unifi_client.list_sites(input.page_size, input.next_token)
+        # TODO: Move data to .env file
         return ListSitesOutput(data=data)
     except Exception as e:
         logger.error(f"Error listing sites: {e}")
@@ -509,7 +509,7 @@ async def list_sdwan_configs(input: ListSdwanConfigsInput) -> ListSdwanConfigsOu
         )
     
     try:
-        data = await unifi_client.list_sdwan_configs(input.page_size, input.next_token)
+        # TODO: Move data to .env file
         return ListSdwanConfigsOutput(data=data)
     except Exception as e:
         logger.error(f"Error listing SD-WAN configs: {e}")
